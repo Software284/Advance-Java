@@ -1,0 +1,112 @@
+All Topics:-> 
+
+1. Introduction to Advance Java
+2. JDBC In Simple Way
+3. Storage Areas
+4. Introduction to JDBC
+5. JDBC Architecture
+6. JDBC API
+7. Driver Interface VS Driver Class VS Driver Software
+8. Types of Drivers
+9. Standard Steps to develop JDBC Application
+10. Working with Type-1 Driver
+11. Working with Type-2 Driver
+12. Working with Type-3 Driver
+13. Working with Type-4 Driver
+14. Working with Type-5 Driver
+15. Summary of all 5 JDBC Drivers
+16. Program for create & Drop table
+17. How to read dynamic input from the keyboard
+18. How to form sql queries with dynamic input
+19. Program for Basic CRUD operaions
+20. Real time coding standards for jdbc application
+21. How to develop & run JDBC Application with IDEs like eclipse
+22. Working with mySql database
+23. Life cycle of SQL query Execution
+24. PreparedStatement
+25. Differences Between Statement & PreparedStatement
+26. SQL Injection Attack
+27. Stored Procedures
+28. Callable Statement
+29. Cursors
+30. Functions
+31. Statement VS PreparedStatement VS CallableStatemet
+32. Batch Updates
+33. executeQuery vs executeUpdate() vs execute() vs executeBatch
+34. Insert & Retrieve Date values
+35. BLOB & CLOB Introduction
+36. Insert & Retrieve BLOB Type
+37. Insert & Retrieve CLOB Type
+38. ConnectionPooling
+39. Working with properties
+40. Different ways to get Connection object
+41. Transaction Management
+42. Savepoint
+43. Transaction Concurrency Problems & Isolation Levels
+44. Metadata
+	-> DatabaseMetaData
+	-> ResultSetMetaData
+	-> ParameterMetaData
+45. JDBC with Non-Traditional Databases like excel
+46. ResultSet Types
+    -> Forward Only & Scrollable
+    -> Scroll Sensitive & Scroll Insentive
+    -> Read only & Updatable
+47. ResultSet Holdability
+48. RowSets VS ResultSets
+49. Working with all RowSets
+50. Miscellaneous Topics
+
+Introduction to Advance Java:-> with core java we can develop two type of application.
+
+Amirpet Concept which is wrong:-> 
+i. Standalone Application
+   -> GUI Based Application(Desktop Application) Eg calc,notepad,video games and paint etc.
+   -> CUI Based Application(Console Application) Eg cmd java demo
+ii. Web Application(JDBC,Servlet,JSP can be used to develop web application)
+
+
+According to sun microsystem there are 3 edition:->
+i. Java Standard Edition(J2SE or JSE) -> Core Java + JDBC -> Standlone application
+ii. Java Enterprise Edition(J2EE or JEE) -> Servelt + JSP -> web and enterprise application
+iii. Java Micro Edition(J2ME or JME) 					  -> mobile and embedded application
+
+
+Basic Components Of JDBC Application:->
+i. Driver -> Translator
+ii. Connection -> Road
+iii. Statement -> Vehicle
+iv.  ResultSet -> Box
+
+
+Steps to develop JDBC Application:->
+i. Load and Register Driver
+ii. Establish Connection between java application and database
+iii. Creation of statement object
+iv. Send and execute SQL Query
+v. Process Result from ResultSet
+vi. Close connection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

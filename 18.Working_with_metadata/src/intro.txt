@@ -1,0 +1,95 @@
+Metadata:->
+-> Metadata means data about data. i.e Metadata provides extra information about our orginal
+data.
+-> Eg: Metadata about database is nothing but database product name,database version etc.
+-> Metadata about ResultSet means no of colums,each column name,column type etc..
+-> JDBC provides support for 3 Types of Metadata
+
+i. DatabaseMetaData
+ii. ResultSetMetadata
+iii. ParameterMetaData
+
+DatabaseMetaData:->
+-> It is an interface present in java.sql package.
+-> Driver Software vendor is responsible to provide implementation.
+-> We can use DatabaseMetaData to get information about our database like database product
+name,driver name,version,number of tables etc.
+-> We can also use DatabaseMetaData to check whether a particular feature is supported by
+DB or not like store procedures,full joins etc.
+-> we can get DatabaseMetaData object by using getMetaData() method of Connection interface.
+DatabaseMetaData dbmd = con.getMetaData();
+-> once we got DatabaseMetaData object we can call several methods on that object like
+getDatabaseProductName();
+getDatabaseProductVersion();
+getMaxColumnsInTable();
+supportsStoredProcedures();
+etc.
+
+
+ResultSetMetaData:->
+-> It is an interface present in java.sql package.
+-> Driver Software vendor is responsible to provide implementation.
+-> it provides information about database table represented by ResultSet object.
+-> Useful to get number of columns,column types etc.
+-> We can get ResultSetMetaData object by using getMetaData() method of ResultSet interface.
+public ResultSetMetaData getMetaData();
+Eg: ResultSetMetaData rsmd = rs.getMetaData();
+-> Once we got ResultSetMetaData object we can call the following methods on that object like
+getColumnCount();
+getColumnName();
+getColumnType();
+etc..
+
+ParameterMetaData(I):
+-> it is an interface and present in java.sql package.
+-> Driver Software vendor is responsible to provide implementation.
+-> In General we can use positional parameters(?) while creating PreparedStatement object.
+-> PreparedStatement pst = con.prepareStatemet("insert into employees values(?,?,?,?)");
+-> We can use ParameterMetaData to get information about positional parameters like parameter
+count,parameter mode and parameter type etc.
+-> we can get ParameterMetaData object by using getParameterMetaData() method of PreparedStatement
+interface.
+ParameterMetaData pmd = pst.getParameterMetaData();
+-> Once we got ParameterMetaData object, we can call several methods on that object like
+int getParameterCount()
+int getParameterMode(int param);
+int getParameterType(int param);
+String getParameterTypeName(int param);
+
+Important Methods of ParameterMetaData:->
+i. int getParameterCount():-> Retrieves the number of paramter in the PreparedStatement object
+for which this ParameterMetaData object contains information.
+
+ii. int getParameterMode(int param):-> Retrieves the designated parameter mode.
+iii. int getParameterType(int param):-> Retrieves the designated parameter's sql type.
+iv. String getParameterTypeName(int param):-> Retrieves the designated parameters database
+specific type name.
+v. int getPrecision(int param):-> Retrieves the designated parameters specified column size.
+vi. int getScale(int param):-> Retrieves the designated parameters number of digits to right of the 
+decimal point.
+vii.int isNullable(int param):-> Retrieves whether null values are allowed in the designated
+parameter
+viii. boolean isSigned(int param):-> Retrieves whether values for the designated parameter can be
+signed numbers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

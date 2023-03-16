@@ -1,0 +1,211 @@
+Standard steps for developing JDBC application:-> 
+i.Load and Register Driver class
+ii. Establish connection b/w java application and database.
+iii. create statement object.
+iv. send and execute sql query.
+v. process result from result set.
+vi. close the connection
+
+Load and Register Driver Class:->
+-> From java application if we want to communicate with database,some special software
+is required, which is nothing but Driver Software we have to make driver software available
+to our program.
+-> every driver software is available in the for of jar file and hence we have to place this jar file in classpath.
+-> Note:-> Type-1 driver software is available as the part of JDK and hence we are not required to set any classpath 
+explictly.
+-> every driver software is identified with some special class which is nothing but Driver Class.
+-> For Type-1 Driver class name is sun.jdbc.odbc.JdbcOdbcDriver
+-> we have to load this driver class.
+-> Any java class we can load by using Class.forName() method hence we can load Driver Class also by using this method
+Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+class JdbcOdbcDriver {
+	static {
+		JdbcOdbcDriver driver = new JdbcOdbcDriver();
+		DriverManager.registerDriver(driver);
+	}
+}
+
+Establish connection between java application and database:->
+Connection con = DriverManager.getConnection("jdbc:ojdbc:demodsn","scott","tiger");
+con is name is sun.jdbc.odbc.JdbcOdbcConnection class object and this implementation is provided by driver software vendor.
+
+
+Create Statement Object:->
+Statement st = con.createStatement();
+
+DDL(Data Definition Language) Commands eg: create table,alter table,drop table etc.
+DML(Data Manupulation Language) commnads eg: insert,delete,update
+DQL(Data Query Language) Commands eg:select
+DCL(Data Control Language) Commands eg: alter password, grant access etc.
+Data Administration Commands eg: start audit,stop audit
+Transaction Control Commands: eg: commit,rollback,Savepoint etc.
+
+Java Developer Point of View:->
+-> Select Commands vs non-select commands(most of the time DML commands)
+
+
+Prepare, Send & Execute Sql Query:->
+
+execute Query:->
+-> to execute select queries
+select * from movies
+public ResultSet executeQuery(String sqlQuery) throws SQLException
+eg: ResultSet rs = st.executeQuery("select * from movies");
+
+executeUpdate():->
+-> it is applicable only for non select operations.
+-> DML (insert/delete/update)
+-> delete from movies where mon >10
+-> 3 rows deleted
+public int executeUpdate(String sqlQuery) throws SQLException
+eg: int x = st.executeUpdate("delete from employees where mno=1");
+
+execute():->
+-> it is applicable for both select & non-select queries.
+-> if we don't know the type of query at the beginning.
+-> return type of execute method is boolean.
+true -> select queries
+false -> non-select queries
+public boolean execute(String sqlQuery) throws SQLException
+
+st.getResultSet()
+st.getUpdateCount();
+
+Note:-> what happen if we used non select query with executeQuery. if we mismatch this type of activities then result
+will be varies from driver to driver.
+type-1 :-> SQLException
+type-2 :-> Empty resultset
+
+for examle exeuteUpdate() vs select query is same problem then what will happen.this result is also varied from driver
+to driver
+type-1 :-> SQL Exception
+type-4 :-> rows selected number we will get
+
+int rowcount = st.executeUpdate("create table emp(eno number)");
+type-1 = -1
+type-4 = 0
+
+Process Result From ResultSet:->
+ResultSet rs = st.executeQuery("select * from movies");
+public boolean next();
+while(rs.next()){
+ read data from that record
+ }
+ 
+ rs.getXXX() => rs.getInt(),rs.getString(),rs.getDouble() ...
+ rs.getXXX(String columnName)
+ rs.getXXX(int columnIndex)
+ 
+ int index = rs.gindColumn(String columnName);
+ 
+ Conclusions:
+ -> ResultSet follows Iterator Design Pattern
+ -> ResultSet object is always associated with statement object.
+ -> Per Statement only one ResultSet is possible at a time. if we are trying to open another
+ result set then automatically first ResultSet will be closed.
+ 
+ 
+ Close the Connection:->
+ -> order of close is
+ rs.close();
+ st.close();
+ con.close();
+ -> per statement only one resultset is possible but per connection multiple statement are possible.
+ -> ResultSet is associated with statemetn object.
+ -> per statement only one ResultSet is possible.
+ -> statement is associated with connection.
+ -> per Connection multiple Statement object are possible.
+ 
+ Note:-> when we close connection then resultset and statment object are automatically closed.
+ con.close();
+ 
+ -> the best way to close resource is try with resouces rather than finally blok
+ try(Connection con = DriverManager.getConnection(){
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

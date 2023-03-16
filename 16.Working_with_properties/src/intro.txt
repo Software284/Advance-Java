@@ -1,0 +1,19 @@
+Properties:->
+-> In Java Program if anything which changes frequently(like jdbc url,username,pwd etc) is 
+not recommended to hard code in our program.
+-> The problem in this approach is if there is any change in java program,to reflect that 
+change we have to recompile,rebuild and redeploy total application and even some times server
+restart also required,which creates a big business impact to the client.
+-> To overcome this problem, we should go for properties file. the variable things we have to
+configure in properties file and we have to read these properties from java program
+-> The main advantage of this approach is if there is any change in properties file and to 
+reflect that change just redployment is enough, which won't create any business impact to the
+client.
+
+How Many getConnection Method are available:->
+i. Connection con = DM.getConnection(url,user,pass);
+ii. Connection con = DM.getConnection(url,Properties p)
+iii. Connection con = DM.getConnection(urls);
+
+urls = jdbc:oracle:thin:@localhost:1521:orcl?user=sys as sysdba&pass=software
+urls = jdbc:oracle:thin:sys as sysdba/software@localhost:1521:orcl

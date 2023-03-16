@@ -1,0 +1,24 @@
+Execute select and non select queries with execute method:->
+Statement st = con.createStatement();
+boolean b = st.execute(sqlQuery);
+if(b==true){
+ResultSet rs = st.getResultSet();
+while(rs.next()){
+}
+}
+else {
+int updateCount = st.getUpdateCount();
+sysout("the no of row effected="+updateCount);
+}
+
+executeQuery with non-select :-> result will vary from the driver to driver. in case of type-1 driver 
+sql exception will be thrown.but in the case of type-4 driver we will get empty resultset. we never going
+to get any exception.changes in db takes place.if we are trying to get empty resultset immediately we will get
+exception.
+
+executeUpdate with select :-> result will vary from the driver to driver. in case of type-1 driver sql exception
+will be thrown. bu in the case of type-4 driver nothing will happen but we will get no of row effected count.
+
+executeUpdate vs DDL :-> No error valid statement
+type-1 : -1
+type-4 : 0

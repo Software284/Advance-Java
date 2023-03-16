@@ -1,0 +1,201 @@
+Life Cycle Of SQL Query Execution:-> from java application if we submit sql query by using statement object 
+execute method.
+Statement st = con.createStatement();
+ResultSet rs = st.executeQuery(sqlQuery)
+then database engine will perform the following sequence of activities
+1.Compilation
+2.Execution
+3.Fetch Result
+
+Compilation:-> As the part of the compilation,database engine will perform the following activities.
+Query Tokenization:-> In this step total SQL Query will be divided into number of tokens and generate a Stream
+of tokens as output.
+Query Parsing:-> In this step,database engine will create parse tree(query tree) with stream of tokens.If the
+query tree is proper then there are no syntactial mistakes in that query.
+if the query tree construction fails then it indicates that there are some syntactical errors present in SQL 
+Query and Sql Exception will raised.
+Query Optimization:-> The main purpose of query optimization is to improve performance.In this step optimized 
+query tree is will be constructed.
+
+
+Execution Of SQL Query:-> once compilation success then database engine will take that query tree as input and
+execute that query by using interpreter.
+
+Fetch The Result:-> Database engine will provide result of SQL Query either in the form of resultset (for select
+query) or the the form of row count (for non select query) to the java application.
+
+
+Need of PreparedStatement:-> In the case of normal statement,whenever we are executing SQL Query,everytime 
+compilation and execution will be happened at database side.
+Statement st = con.CreateStatement();
+ResultSet rs = st.executeQuery("select * from employees")
+sometimes in our application,we required to execute same query multiple times with same or different input
+values.
+java application <-> request time,response time <-> database <-> compile time,execution time
+
+Example 1:-> In IRCTC application, it is common requirement to list out all possible trains between two places
+select * from trains where source = 'xxx' and destination = 'yyy'
+
+Example 2:-> In book my show application,it is very common requirement to display theatre names where a 
+particular movie running/playing in particular city 
+select * from theatre where city='xxx' and movie ='yyy'
+in this case this query is required to execute lakhs of times per day.may be with different names and cities.
+for the above requirement if we use statement object then the query is required to compile and execute 
+everytime. which creates performance problem.
+to overcome this problem we should go for prepared statement. 
+the main advantage of prepared statement is the query will be compiled only once even though we are executing
+multiple times so that overall performance of the application will be improved.
+we can create PreparedStatement by using PreparedStatement() method of Connection interface.
+public PreparedStatement prepareStatement(String sqlQuery);
+At this line,sql query will send to the database. Database engine will compile that query and stores in the
+database.
+that are compiled query will return to the java application in the form of PreparedStatement object hence
+PreparedStatemet represents "pre compiled sql query".
+whenever we call execute methods,database engine won't compile query once again and it will directly execute
+that query,so that overall performance will be improved.
+
+prepared statement parent interface is statement so all the method of statement are available in prepared
+statement.
+
+
+
+
+Steps to develop JDBC Application by using PreparedStatement
+i. Prepare SQL Query either with parameter or without parameter.
+insert into employees values(100,'durga',1000,'hyd')
+insert into employees values(?,?,?,?)
+?-> positional parameters or place holder or in parameter
+
+ii. Create PreparedStatement object with our qquery
+PreparedStatement pst = con.prepareStatement("sqlQuery")
+at this line only query will be compiled
+
+iii. if the query is parameterized query then we have to set up input values to these parameter by using
+corresponding setter methods.
+we have to consider these positional parameters from left to right and these are 1 index based. i.e index of
+first positional parameter is 1 but not zero.
+pst.setInt(1,100)
+pst.setString(2,'durga')
+pst.setDouble(3,1000)
+pst.setString(4,'hyd')
+
+Note:-> before executing the query,for every positional parameters we have to provide input values otherwise
+we will get SQLException
+
+iv. Execute SQL Query: -> PreparedStatement is the child interface of Statement and hence all methods of statement
+interface are by default available to the PrepredStatement. hence we can use same methods to execute sql query.
+executeQuery()
+executeUpdate()
+execute()
+
+Note:-> we can execute same parameterized query multiple times with different sets of input values.
+in this case query will be compiled only once and we can execute multiple times.
+
+Static Query vs Dynamic Query:-> The sql query without positional parameter(?) is called static query.Eg:
+delete from anonymous where id=3
+the sql query with positional parameter(?) is called dynamic query.Eg
+select * from anonymous where id=?
+
+Advantage Of PreparedStatement:->
+-> performance will be improved when compared with simple statement because query will be compiled only once.
+-> network traffic will be reduced between java application and database because we are not require to send
+query every time to the database.
+-> we are not required to provide input values at the beginning and we can provide dynamically so that we
+can execute same query multiple times with different sets of values.
+-> it allows to provide input values in java style and we are not required to convert into database specific
+format.
+-> best suitable to insert date values.
+-> best suitable to insert large objects(CLOB and BLOB).
+-> it prevents sql injection attack.
+
+Limitation Of PreparedStatement:->
+-> we can use PreparedStatement for only one sql query like CDMA phone but we can use simple statement to
+work with any no of queries like GSM phone
+Eg
+Statement st = con.createStatement()
+st.executeUpdate("insert into ..")
+st.executeUpdate("update anonymous...")
+st.executeUpdate("delete from ...");
+
+Here we are using one statement object to execute 3 queries.
+PreparedStatement pst = con.prepareStatement("insert into anonymous");
+here PreparedStatement object is associated with only insert query.
+
+Note:-> simple statement can be only used for static queries while prepared statement can used for both
+static and dynamic query.
+
+
+Statement Vs PreparedStatement:->
+-> at the time of creating statement object,we are not required to provide any query.
+Statement st = con.createStatement();
+hence statement object is not associated with any query and we can use for multiple queries.
+VS
+at the time of creating prepared statement we have to provide sql query compulsory and will send to the database
+and will be compiled.
+PreparedStatement pst = con.preareStatement(query)
+hence prepared Statement is associated wih only one query.
+
+-> whenever we are using execute method,every time query will be compiled and executed
+VS
+whenever we are using execute method query won't be compiled just will be executed.
+
+-> statement object can work only for static queries.
+VS 
+prepared statement object can work for both static and dynamic queries.
+
+-> relatively performance is low VS relatively performance is high
+-> best choice if we want to work with multiple queries VS best choice if we want to work with ony one 
+query but required to execute multiple times.
+-> there may be a chance of sql injection attack VS there is no chancee of sql injection attack.
+-> inserting date and large object(clob and blob) is difficult VS inserting date and large objects(clob and blob)
+is easy.
+
+
+
+SQL Injection Attack:-> when we append special character as dynamic input values while executing sql queries at the run 
+time the behaviour of the query will be changed. this is because of the simple statement is compiled every time while
+executing the query then query will be accordingly intrepret according to that. this case is not happen with prepare statemet
+because prepared statement compiled only once at compile time so there is no change in query behaviour.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

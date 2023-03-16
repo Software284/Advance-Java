@@ -1,0 +1,8 @@
+Aggregate Functions:->
+i. To know the number of rows
+count(*)
+select count(*) from anonymous
+ii. To know maximum value of esal
+max(esal) 
+iii. To know minimum salary
+min(esal)

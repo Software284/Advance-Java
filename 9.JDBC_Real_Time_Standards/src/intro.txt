@@ -1,0 +1,6 @@
+JDBC Real Time Standard:
+-> meaningful names we have to take
+-> package statement
+-> import explicit
+-> try catch is recommended than throws
+-> duplicate code is not recommended

@@ -1,0 +1,105 @@
+ResultSet Types:->
+Division-1:-> Based on operations performed on ResultSet,we can divide ResultSet into 2 types
+i. Read Only ResultSets(Static ResultSets)
+ii. Updatable ResultSets(Dynamic ResultSets)
+
+Read Only ReulstSets:-> 
+-> we can perform only read operations on the ResultSet by using corresponding getter methods
+and we cannot perform any updates.
+-> By default ResultSet is Read Only.
+-> We can specify explicitly ResultSet as Read only by using the following constant of ResultSet.
+public static final int CONCUR_READ_ONLY -> 1007
+
+Updatable ResultSets:->
+-> The ResultSet which allows programmer to perform updations, such type of ResultSets are
+called Updatable ResultSets.
+-> In this case we can perform select,insert,delete and update operations.
+-> We can specify ResultSet explicitly as Updatable by using the following constant of
+ResultSet.
+public static final int CONCUR_UPDATABLE -> 1008
+
+Division-2:
+-> Based on Cursor movement, ResultsSets will be divided into the following 2 types.
+i. Forward only(Non-Scrollable) ResultSet
+ii. Scrollable ResultSets
+
+Forward Only ResultSets:-> 
+-> it allows the programmer to iterate records only on forward direction i.e from top to
+bottom sequentially.
+-> by default every ResultSet is forward only.
+-> we can specify explicitly ResultSet as Forward only by using the following constant of 
+ResultSet
+public static final int TYPE_FORWARD_ONLY -> 1003
+
+Scrollable ResultSets:->
+-> it allows the programmers to iterate in both forward and backward directions.
+-> we can also jump to a particular position randomly, or relative to current position. here
+we can move to anywhere.
+-> there are two types of scrollable resultsets.
+i. Scroll Insensitive ResultSet
+ii. Scroll Sensitive ResultSet
+
+Scroll Insensitive ResultSet:->
+-> After getting ResultSet if we are performing any change in database and if those changes
+are not reflecting to the ResultSet, such type of ResultSets are called scroll insensitive 
+ResultSets.
+-> i.e ResultSet is insensitive to database operations.
+-> we can specify explicitly ResultSet as Scroll insensitive by using the following constant.
+public static final int TYPE_SCROLL_INSENSITIVE -> 1004
+
+Scroll Sensitive ResultSet:->
+-> After getting the ResultSet if we perform any change in the database and if those changes are
+visible to ResultSet, such type of ResultSet is called Scroll sensitive ResultSet.
+-> i.e ResultSet is sensitive to database operations.
+-> we can specify explicitly ResultSet as scroll sensitive by using the following constant.
+public static final int TYPE_SCROLL_SENSITIVE -> 1005
+
+
+Difference Between Scroll Insensitive and Scroll Sensitive ResultSets:->
+-> After getting ResultSet if we perform any updation in the DB then those updation are not
+visible to the ResultSet i.e ResultSet is insensitive to DB updations VS After getting 
+ResultSet if we perform any updation in the DB then those updation are by default available 
+to the ResulstSet i.e ResultSet is sensitive to DB updations.
+-> As insensitive ReulstSet is like snapshot of Data in DB when Query will be executed VS
+A Sensitive ResultSet doesn't represent snap shot of Data. it contains Pointers to Rows of
+DB directly, which satisfy Query condition.
+-> Relatively Performance is High VS Relatively Performance is low because for get operation
+a Trip is required to DB.
+
+Forward Only(Non-Scrollabel) ResultSet VS ScrollabelResultSet:-> 
+-> cursor can move only in forward direction VS cursor can move in both forward and backward
+direction.
+-> this cursor can't move randomly VS This cursor can move randomly.
+-> By using Non-scrollable Reusltset cursor,if we want to move to nth record (n+1) iterations
+are required hence performance is low VS performance is high, because curosr can move randomly to
+any record
+
+List of allowed methods on scrollable ResultSets:->
+1. rs.next();
+2. rs.getXxx();
+3. rs.getRow();
+4. rs.previous():-> it checks whether previous record is available or not. if it is available
+then the curosr will move to that record position.
+5. rs.beforeFirst():-> the cursor will be moved to before first record position
+6. rs.afterLast():-> moves the cursor after last record position.
+7. rs.first():-> moves the cursor to the first record position.
+8. rs.last():-> moves the cursor to the last record position
+9. rs.absolute(int x):-> The argument can be either positive or negative. if it is positive
+then the cursor will be moved to that record position from top of ResultSet. If the
+argument is negative then it will be moved to the specified record position from last.
+10. rs.relative(int x):-> The argument can be either positive or negative. if the argument
+is positive then the curosr will move to forward direction to specified number of records 
+from the current position. if the argument is negative then the cursor will move to 
+backward direction to the specified number of records from the current position.
+11. rs.isFirst():-> returns true if the cursor is locating at first record position 
+12. rs.isLast():-> 
+13. rs.isBeforeFirst();
+14. rs.isAfterLast();
+15. rs.refreshRow(): -> we can use this method in scroll sensitive ReulstSets to udpate row
+with latest values from database.
+
+Absolute Vs Relative Method:-> absolute() method will always work either from BFR or from 
+ALR.relative() method will work wrt to current position.
+
+
+Note:This scrollable  is only supported by type-1 driver and type-2 with update but not by type-4.

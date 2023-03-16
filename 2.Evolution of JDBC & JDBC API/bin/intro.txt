@@ -1,0 +1,421 @@
+Storage Areas:->
+	-> Temporary Storage Areas -> all jvm memory areas such as objects stored in heap,local variable in stack,static variable in method area.
+	-> Permanent Storage Areas -> for example file system and database are permanent storage areas(persistant strage areas)
+	
+File Systems:-> 
+-> File Systems provided by Local Operating System.
+-> Files are best suitable to store very less amount of information.
+
+Limitations:-> 
+-> we can't store huge amount of information
+-> There is no query language support and hence operations will become very
+difficult.
+-> There is no security for our data.
+-> There is no mechanism to prevent duplicate data hence there may be a chance
+of Data inconsistency problems.
+
+Databases:->
+-> we can store huge amount of information
+-> Query language support is available and hence we can perform operations
+very easily.
+->To access data present in the database,compulsory username and password must be
+required hence security there for our data.
+-> While developing database Schemas, Database Admin will follow normalization
+techniques & various constraints like unique key constraints,primary key 
+constraints which prevents duplicate data hence there is no chance of data
+inconsistetncy problems.
+
+
+Limitations:->
+-> we can't store very huge amount of data like peta bytes exa bytes.
+-> can store only structured Data[relational data] & we can't store semi
+structured[like xml files] and unstructured data like videos,audio files etc.
+
+
+JDBC:->
+-> JDBC is a technology which can be used to communicate with database from 
+java application.
+java application <-> JDBC <-> DB(Oracle,MySql etc)
+-> JDBC is part of Java Standard Edition(J2SE/JSE)
+-> JDBC is a specification(Guidelines) defined by Java vender and implemented 
+by Database vendor.
+-> Database vendor provided implementation is called Driver Software.
+
+JDBC Features:->
+-> JDBC is a standard API. we can communicate with any database without 
+rewriting our application.i.e it is database independent api.
+-> Most of JDBC Drivers are develope in java and hence JDBC concept can work
+for any platform i.e it is platform independent technology.
+-> By using JDBC API, we can perform basic CRUD operation very easily. we can
+also perform complex operations(like joins,calling stored procedures) very 
+easily.
+-> Huge vendor support for JDBC. They developed multiple products based on JDBC API.
+
+JDBC Versions:->
+-> Java 1.1v(Java SE 1.1v) => JDBC 1.0v
+-> Java 1.4v(Java SE 1.4v) => JDBC 3.0v
+-> Java 5(Java SE 5) => No Update In JDBC
+-> Java 6(Java SE 6) => JDBC 4.0v
+-> Java 7(Java SE 7) => JDBC 4.1v
+-> Java 8(Java SE 8) => JDBC 4.2v
+
+Evolution of JDBC:->
+-> If we want to communicate with database from c/c++ application, 
+compulsary we have to use database specific libraries in our application
+directly.
+c/c++ application(use oracle libraries) <-> Oracle DB
+In the above diagram c/c++ application uses oracle libraries directly.
+-> The problem in this approach is, if we want to migrate to other database we have to rewrite total 
+application again with new database specific libraries.
+c/c++ application(use mysql libraries) <-> mySql DB
+-> Application will become database dependent and creates maintenance problem
+
+C/C++ application without ODBC:->
+c/c++ application(use oracle libraries) <-> Oracle DB
+c/c++ application(use mysql libraries) <-> MySql DB
+c/c++ application(use sybase libraries) <-> Sybase DB
+-> separate application for every database.
+-> 3 applications for 3 database
+
+C/C++ application with ODBC:-> 
+-> with ODBC, application can communicate with any database, just by selecting
+corresponding ODBC Driver.
+c/c++ application <-> ODBC Driver For Oracle <-> Oracle DB
+c/c++ application <-> ODBC Driver For MySql <-> MySql DB
+c/c++ application <-> ODBC Driver For Sybase <-> Sybase DB
+-> one application but 3 databases
+-> we are not required to use any database specific libraries in our application. 
+and application is database independent.
+
+
+Limitation Of ODBC:->
+Java Application <-> ODBC Driver For Oracle <-> Oracle DB
+Java Application <-> ODBC Driver For MySql <-> MySql DB
+Java Application <-> ODBC Driver For Sybase <-> Sybase DB
+-> ODBC Concept will work only for windows platform.it is platform dependent
+technology.
+-> ODBC Drivers are implemented in C language. if we use for java applications,
+performance will be down because of internal conversions from java to c and 
+c to java.
+
+
+JDBC:->
+-> Introduced by SUN microsystem in 1997.
+-> Java Application <-> JDBC Driver for Orcle <-> Oracle DB
+-> Java Application <-> JDBC Driver for MySql <-> MySql DB
+-> Java Application <-> JDBC Driver for Sybase <-> Sybase DB
+-> JDBC Concept applicable for any platform hence it is platform independent
+technology.
+-> mostly JDBC Drivers are implemented in java hence internal conversions are
+not required & performance won't be effected.
+
+
+Differences between ODBC & JDBC:->
+-> ODBC stands for Open Database Connectivity VS JDBC Stands for Java Database Connectivity.
+-> Introduced by microsoft in 1992 VS Introduced by Sun Micro Systems in 1997.
+-> we can use ODBC for any language like c,c++,java,etc VS we can use JDBC only for java language.
+-> we can use ODBC only for windows platform VS we can use JDBC for any platform.
+-> mostly ODBC drivers are developed in native languages like c/c++ VS mostly JDBC drivers are
+developed in java.
+-> For java applications,it is not recommended to use ODBC because performance will be down due
+to internal conversions and applications will become platform dependent VS For Java applications, 
+it is highly recommended to use JDBC because ther are no performance & platform dependent 
+problem.
+
+JDBC Architecture:->
+Java Application -> JDBC API -> Driver Manager -> Driver For Oracle -> Oracle DB
+-> JDBC API provides DriverManager to java application.
+-> Java application can communicate with any database with the help of DriverManager and database
+specific driver software.
+
+DriverManager:
+-> it is the key component in JDBC Architecture.
+-> it is a class present in java.sql package.
+-> it is responsible to manage all database drivers.
+-> it is responsible to register and unregister database drivers
+DriverManager.registerDriver(driver),
+DriverManager.unregisterDriver(driver)
+-> it is responsible to establish connection to the database with the help of driver software.
+Connection con = DriverManager.getConnection(jdbcUrl,username,pwd);
+
+Database Driver:->
+-> it is very important component of JDBC Architecture.
+-> without driver software, we can't touch database.
+-> it acts as bridge between java application and database.
+-> it is responsible to convert java calls into database specific calls and database specific 
+calls into java calls.
+
+JDBC API:->
+-> JDBCAPI provides several classes and interfaces.
+-> Programmer can use these classes and interfaces to communicate with database.
+-> Driver Software vendor can use JDBC API while developing driver software.
+-> JDBC API contains 2 packages.
+
+i. java.sql package
+ii. javax.sql package
+
+java.sql package:->
+-> it contains basic classes and interfaces which can be used for database communication.
+Interfaces:-> Driver,Connection,Statement,PreparedStatement,CallableStatement,ResultSet
+Classes:-> DriverManager,Date,Time,TimeStamp,Types
+
+javax.sql package:->
+-> it contains more advanced classes and interfaces which can be used for database
+communication.
+-> it contains multiple sub packages
+javax.sql.rowset,javax.sql.rowset.serial,javax.sql.rowset,spi
+Interfaces:-> DataSource,RowSet,RowSetListener,ConectionEventListener
+Classes:-> RowSetEvent,ConnectionEvent
+
+-> Programmer are not responsible to provide implementation for JDBC API interfaces.
+-> most of the times database vendor is responsible to provide implementation as the part of 
+driver software.
+-> every driver software is a collection of classes implementing various interfaces of JDBC API,
+which can be use to communicate with particular database
+-> Java Application <-> driver software <-> database
+-> for example driver software for oracle means collection of implementation classes of JDBC API,
+which can be used to communicate with oracle database.
+
+-> Every driver software is identified with a special class which is nothing but Driver Class.
+-> it is the implementation class of java.sql Driver Interface.
+-> eg1:-> type 1 driver software provided by SUN micro Systems as the part of JDK. The corresponding
+driver class name is Sun.Jdbc.Odbc.JdbcOdbcDriver
+-> eg2:-> thin driver provided by oracle corporation & corresponding driver class name is 
+Oracle.jdbc.OracleDriver
+
+Difference b/w Driver interface,Driver class & Driver Software:->
+
+Driver Interface:-> 
+-> This interface present in java.sql package.
+-> it acts as a requirement specification to develop Driver class.
+
+Driver Class:->
+-> it is the implementation class of Driver interface.
+-> it is the main class present in Driver Software.
+Eg: sun.jdbc.odbc.JdbcOdbcDriver,oracle.jdbc.OracleDriver
+
+Driver Software:->
+-> it is the collection of implementation classes of various interfaces present JDBC API.
+-> it is responsible to convert java class into database specific calls and database specific
+calls into java calls.
+-> it acts as bridge between java application & database.
+
+
+-> Usually Driver Softwares are available in the form of jar file. Eg ojdbc6.jar,ojdbc7.jar etc.
+-> Driver software can be provided by the following vendors 
+i. Java Vendor
+ii. Database Vendor
+iii. Third Party Vendor
+
+Eg:
+-> type-1 driver(jdbc-odbc bridge driver) provided by java vendor
+-> Thin Driver provided by Oracle database Vendor
+-> Inet is a 3rd party vendor providing driver softwares for various databases.
+Inet oraxo for oracle databases
+Inet merlia for microsoft sql server
+Inet sybelux for sybase database
+
+Note:-> it is highly recommended to use database vendor provided driver softwares.
+
+
+-> while developing driver software, vendors may use only java or java with other languages like
+c/c++.
+-> if driver software is developed only in java language,then such type of drivers are called
+pure java drivers.
+-> if driver software is developed with java and other languages then such type of driver softwaes
+calleed partial java driver.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

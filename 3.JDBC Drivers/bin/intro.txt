@@ -1,0 +1,279 @@
+Types Of Drivers:->
+-> while communicating with database, we have to convert java calls into database specific calls and 
+database specific calls into java calls. for this Driver software is required.
+-> In the market thousands of Drivers are available but based on functionality and architecture all 
+drivers are divided into 4 types
+i. Type-1 Driver(JDBC-ODBC Bridge Driver or Bridge driver)
+ii. Type-2 Driver(Native API-Partly Java Driver or Native driver)
+iii. Type-3 Driver(All Java net protocol driver or network protocol or middleware driver.
+iv. Type-4 Driver(All jaa native protool driver or pure java driver or thin driver)
+
+-> Progress Data Direct Software company introduced type-5 driver. it is not industry standards.
+
+
+Type-1 Driver:-> 
+-> Java Application <-> Type-1 Driver <-> ODBC Driver <-> DB
+-> Also known as JDBC-ODBC Bridge Driver or Bridge Driver.
+-> This driver provided by sun micro systems as the part of JDK.
+-> Internally, this driver will take support of ODBC driver to communicate with database.
+-> Type-1 driver converts JDBC calls into ODBC calls and ODBC driver converts ODBC calls into database
+specific calls.
+-> hence Type-1 Driver acts as bridge between JDBC & ODBC.
+
+Advantages:->
+-> it is very easy to use and maintain
+-> we are not required to install because it is available as the part of JDK.
+-> Type-1 driver won't communicate with database directly.hence it is database independent driver 
+because of this migrating from one database to another database will become easy.
+
+Limitations:->
+-> it is slowest driver among all drivers because first it will convert JDBC calls into ODBC calls and
+ODBC driver converts ODBC calls into database specific calls.
+-> This driver internally depends on ODBC driver which will work only on windows machines hence Type-1
+driver is platform dependent driver.
+-> No Support from JDK 1.8 verson onwards.
+
+Note:-> Because of above limitations it is not recommended to use Type-1 driver. it was history.
+
+Type-2 Driver:->
+-> Java Application <-> Type-2 Driver <-> Database vendor specific native libraries <-> DB
+-> it is also known as native API partly java driver.
+-> Type-2 driver is exactly same as Type-1 driver except that ODBC driver is replaced with database 
+vendor specific native libraries.
+-> Native libraries means the set of functions written in non-Java(mostly c/c++)
+-> we have to install vendor provided native libraries on the client machine.
+-> Type 2 driver converts JDBC calls into vendor specific native library calls which can be understandable
+directly database engine.
+
+Advantage:->
+-> when compared with Type-1 driver performance is high, because it required only one level conversion
+from JDBC to native library calls.
+-> no need of arranging ODBC driver.
+-> when compared with Type-1 driver, portability is more because Type-1 driver is applicable only 
+for windows machines.
+
+Limitations:->
+-> it is database dependent driver because it internally uses database specific native libraries hence 
+migrating from one database to another database will become difficult.
+-> it is platform dependent driver.
+-> we required to install native libraries on the client machine.
+-> There is no gurantee every database vender will provide these drivers[oracle people provided but
+mysql people won't].
+Note:-> The only driver which is both platform & database dependent is Type-w driver. it is not recommended 
+to use.
+
+Type-2 With OCI:->
+-> Java Application(JDBC) <-> OCI Driver <-> OCI Libraries <-> DB
+-> OCI(Oracle Call Interface) Driver is Type-2 driver provided by Oracle.
+-> OCI driver internally uses OCI Libraries to communicate with database.
+-> OCI Libraries contain c language functions.
+-> OCI driver and corresponding OCI Libraries are available in the following jar file hence we have
+to plcae this jar file in the classpath.
+ojdbc14.jar -> Oracle 10g(internally users java 1.4v)
+ojdbc6.jar -> Oracle 11g(internally uses java 6v)
+ojdbc7.jar -> Oracle 12c(internally uses 7v).
+
+
+Type-3 Driver:->
+-> Java Application <-> Type-3 Driver <-> middleware server <-> DB
+-> Also known as all java net protocol driver or network protocol driver or middleware driver.
+-> Type-3 Driver converts JDBC calls into middleware server specific calls middleware server converts
+middleware server sepecific calls into database specific calls.
+-> Internally middleware server uses Type-1,2 or 4 drvers to communicate with database.
+
+Note:-> The only driver which is both platform independent and database independent is Type 3 Driver.
+hene it is recommended to use.
+
+Advantages:->
+-> This Driver won't communicate with database directly and hence it is database independent driver.
+-> it is platform independent driver.
+-> no need of ODBC driver or vendor specific native libraries.
+
+Limitations:-> 
+-> Because of having middleware server in the middle there may be a chance of performance problems.
+-> we need to purchase middleware server and hence the cost of this driver is high when compared with
+all remaining drivers.
+
+
+Type-4 Driver:-> 
+-> Java Application <-> Type-4 Driver <-> DB
+-> Also known as pure java driver (or) all java native protocol driver or thin driver.
+-> This driver uses database specific native protocols to communicate with database.
+-> This driver converts JDBC calls into database specific calls directly.
+-> This driver developed only in java and hence it is also known as pure java driver because of
+this it is platform independent driver.
+-> this driver won't require any ODBC driver or native libraries at client side and hence it is called
+thin driver.
+
+Advantages:->
+-> it is platform independent driver.
+-> it won't require ODBC driver or native libraries or middleware server.
+-> it uses database vendor specific native protocol to communicate with database and hence security
+is more
+
+Limitations:->
+-> The only limitation of this driver is it is database dependent driver because it is communicate
+with databse directly.
+-> Eg thin driver for oracle and connector j for mysql.
+
+Which Driver Should be used??
+-> If we are using only one type of database in our application then it is recommended to use type-4
+driver.eg standalone applications & small scale web applications.
+-> If we are using multiple types of databases in our application then type-3 driver is recommended to use.
+eg:large scale web applications,enterprise applications.
+-> if type-3 and type-4 driver are not available then only we should go for type-2 driver.
+-> if no other driver is available then we should go for Type-1 driver.
+
+
+Thin Driver VS Thick Driver:->
+-> if database driver required some extra component to communicate with the database such type of 
+driver is called thick driver. for example type-1,type-2,type-3.
+-> if database driver won't required any extra component to communicate with the database then such
+type of driver is called thin driver. for example type-4.
+
+2-Tier Architecutre :-> Type-2,Type-1,Type-4(2 machines)
+3-Tier Architecture :-> Type-3(3 machines)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
